@@ -4,7 +4,7 @@
     <div class="container dynamic-quiz" role="main">
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
-                <h2>Question <?php echo $num; ?>:</h2>
+                <h2>Question <?php echo ($num + 1); ?>:</h2>
                 <p><?php echo $question->getDescription(); ?></p>
                 <form id="dynamic-quiz-question">
                     <ul>
@@ -21,7 +21,6 @@
                     ?>
                     </ul>
                     <p>
-                        <input type="hidden" name="num" value="<?php echo $num; ?>" />
                         <input type="submit" id="submit" class="btn btn-primary" name="submit" value="Check" />
                     </p>
                 </form>
@@ -33,7 +32,10 @@
 
                     <div class="didYouKnow"><?php echo $question->getDidYouKnowHtml(); ?></div>
 
-                    <p><a href="<?php echo $root; ?>/dynamicquiz/question"><button class="btn btn-primary">Go to the next question &gt;</button></a></p>
+                    <form id="dynamic-quiz-next-question" method="post" action="<?php echo $root; ?>/dynamicquiz/question">
+                        <button class="btn btn-primary">Continue &gt;</button>
+                        <input type="hidden" name="result" id="result" value="0" />
+                    </form>
                 </div>
 
             </div>
@@ -50,6 +52,7 @@
                     $("#results .result")
                         .css("color", "green")
                         .html("<strong>Correct!</strong>");
+                    $("#dynamic-quiz-next-question #result").val(1);
                 }
                 else {
                     $("#results .result")

@@ -20,6 +20,10 @@ class PopulationDataStore extends DynamicQuizDataStore {
     protected $_ageRange = null;
     protected $_stateId = null;
 
+    public function __construct() {
+        $this->_questionIds[0] = "Population-HowManyPeopleYourAgeGenderLocation";
+    }
+
     public function getRelevantDataQuestions($gender, $age, $location) {
 
         $this->_rawGender = $gender;
@@ -35,7 +39,7 @@ class PopulationDataStore extends DynamicQuizDataStore {
             $correctAnswer = $this->getCorrectAnswer();
             $didYouKnowData = $this->getDidYouKnowData();
 
-            $question = new DynamicQuizQuestion("Population-HowManyPeopleYourAgeGenderLocation");
+            $question = new DynamicQuizQuestion($this->_questionIds[0]);
             $question->setDescription("How many " . lcfirst($gender) . "s aged " . $this->_ageRange . " are there in " . $location->getState() . "?");
             $question->setCorrectAnswer($correctAnswer);
             $question->setWrongAnswers($this->generateRandomWrongAnswersForNumber($correctAnswer));
@@ -122,9 +126,10 @@ class PopulationDataStore extends DynamicQuizDataStore {
 
         $soapVar = new \SoapVar($xml_params, XSD_ANYXML, null, null, null);
 
-        try{
+        try {
             $data = $client->GetGenericData($soapVar);
-        } catch(Exception $e) {
+        }
+        catch(\Exception $e) {
             return false;
         }
 

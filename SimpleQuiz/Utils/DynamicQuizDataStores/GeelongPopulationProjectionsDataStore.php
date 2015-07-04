@@ -15,6 +15,10 @@ class GeelongPopulationProjectionsDataStore extends DynamicQuizDataStore {
 
     protected $_projectionYear = "2051";
 
+    public function __construct() {
+        $this->_questionIds[0] = "GeelongPopulationProjections-HowManyPeopleWillLiveInYourAreaIn" . $this->_projectionYear;
+    }
+
     public function getRelevantDataQuestions($gender, $age, $location) {
 
         $this->_rawLocation = $location;
@@ -30,7 +34,7 @@ class GeelongPopulationProjectionsDataStore extends DynamicQuizDataStore {
 
                 $lowestLevelLocation = $this->_rawLocation->getLowestLevelLocation();
 
-                $question = new DynamicQuizQuestion("GeelongPopulationProjections-HowManyPeopleWillLiveInYourAreaIn" . $this->_projectionYear);
+                $question = new DynamicQuizQuestion($this->_questionIds[0]);
                 $question->setDescription("According to 2011 estimates, how many people will live in " . $lowestLevelLocation . " in " . $this->_projectionYear . "?");
                 $question->setCorrectAnswer($correctAnswer);
                 $question->setWrongAnswers($this->generateRandomWrongAnswersForNumber($correctAnswer));

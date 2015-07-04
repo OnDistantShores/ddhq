@@ -13,6 +13,10 @@ class DynamicQuizQuestion {
         $this->_id = $id;
     }
 
+    public function getId() {
+        return $this->_id;
+    }
+
     public function setDescription($description) {
         $this->_description = $description;
     }
