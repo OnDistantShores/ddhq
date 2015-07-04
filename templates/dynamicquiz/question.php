@@ -13,8 +13,7 @@
                         shuffle($answers);
 
                         $answerId = 0;
-                        foreach ($answers as $answer)
-                        {
+                        foreach ($answers as $answer) {
                             echo '<li><input type="radio" id="answer' . $answerId . '" value="' . $answer . '" name="answers" />' .PHP_EOL;
                             echo '<label for="answer' . $answerId . '">' . $answer . '</label></li>' . PHP_EOL;
                             $answerId++;
@@ -60,6 +59,8 @@
                 }
 
                 $("#results").show();
+
+                $("#dynamic-quiz-question #submit").attr('disabled','disabled');
 
                 if ($.doDidYouKnowAction) {
                     $.doDidYouKnowAction($("#results .didYouKnow"));
