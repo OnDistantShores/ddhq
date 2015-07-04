@@ -1,5 +1,5 @@
 <?php
-    include'header.php';
+    include 'header.php';
 ?>
     <div class="container dynamic-quiz" role="main">
         <div class="row">
@@ -11,6 +11,7 @@
                 <p><button>Connect via Facebook</button></p>
                 <p>TODO</p>
             </div>
+
 
             <div class="col-sm-2">
                 <p>- OR -</p>
@@ -32,14 +33,11 @@
                     <div class="form-group">
                         <label for="location">Location</label>
                         <select name="location" class="form-control">
-                            <option>Australian Capital Territory</option>
-                            <option>New South Wales</option>
-                            <option>Queensland</option>
-                            <option>Western Australia</option>
-                            <option>Tasmania</option>
-                            <option>South Australia</option>
-                            <option>Northern Territory</option>
-                            <option>Victoria</option>
+                            <?php
+                                foreach ($suburbs as $suburb) {
+                                    echo "<option>" . $suburb . "</option>" . PHP_EOL;
+                                }
+                            ?>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-default">Start</button>

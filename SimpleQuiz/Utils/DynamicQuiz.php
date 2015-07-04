@@ -24,7 +24,7 @@ class DynamicQuiz extends Quiz {
     {
         $this->_person_gender = $gender;
         $this->_person_age = $age;
-        $this->_person_location = $location;
+        $this->_person_location = new Location($location);
     }
 
     public function generateQuestion() {

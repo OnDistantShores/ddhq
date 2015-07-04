@@ -84,6 +84,15 @@ class AbsStatConstants {
       return null;
     }
 
+    public static function getAgeRangeFromId($ageId) {
+      foreach(self::$AGE as $key=>$value){
+        if($key == $ageId){
+          return $value;
+        }
+      }
+      return null;
+    }
+
     public static function getStateId($state) {
       foreach(self::$STATE as $key=>$value){
         if($value == $state){

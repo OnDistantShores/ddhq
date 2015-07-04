@@ -36,7 +36,6 @@
                     <p><a href="<?php echo $root; ?>/dynamicquiz/question"><button class="btn btn-primary">Go to the next question &gt;</button></a></p>
                 </div>
 
-
             </div>
         </div>
     </div><!--container-->

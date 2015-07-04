@@ -60,7 +60,8 @@ class DynamicQuizQuestion {
                                 highlightStroke: 'rgba(220,220,220,1)',
                                 data: [" . implode(",", array_values($data)) . "]
                             }
-                        ]
+                        ],
+                        responsive: true
                     });
                 };
             </script>

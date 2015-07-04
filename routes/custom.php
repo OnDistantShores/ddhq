@@ -5,7 +5,13 @@ $app->get('/dynamicquiz/start', function () use ($app) {
 
     $session = $app->session;
 
-    $app->render('dynamicquiz/start.php', array('session' => $session));
+    $locations = \ORM::for_table('location')->select_many('suburb')->order_by_asc('suburb')->find_many();
+    $suburbs = array();
+    foreach ($locations as $location) {
+        $suburbs[] = $location["suburb"];
+    }
+
+    $app->render('dynamicquiz/start.php', array('session' => $session, 'suburbs' => $suburbs));
 });
 
 $app->post('/dynamicquiz/question', function () use ($app) {

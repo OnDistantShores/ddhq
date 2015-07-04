@@ -17,6 +17,7 @@ class PopulationDataStore extends DynamicQuizDataStore {
     protected $_rawLocation = null;
     protected $_genderId = null;
     protected $_ageId = null;
+    protected $_ageRange = null;
     protected $_stateId = null;
 
     public function getRelevantDataQuestions($gender, $age, $location) {
@@ -27,17 +28,23 @@ class PopulationDataStore extends DynamicQuizDataStore {
 
         $this->_genderId = AbsStatConstants::getGenderId($gender);
         $this->_ageId = AbsStatConstants::getAgeGroupId($age);
-        $this->_stateId = AbsStatConstants::getStateId($location); // TODO update this
+        $this->_ageRange = AbsStatConstants::getAgeRangeFromId($this->_ageId);
+        $this->_stateId = AbsStatConstants::getStateId($location->getState());
 
         if ($this->retrieveData()) {
             $correctAnswer = $this->getCorrectAnswer();
             $didYouKnowData = $this->getDidYouKnowData();
 
             $question = new DynamicQuizQuestion("Population-HowManyPeopleYourAgeGenderLocation");
-            $question->setDescription("How many " . lcfirst($gender) . "s aged " . $age . " are there in " . $location . "?");
+            $question->setDescription("How many " . lcfirst($gender) . "s aged " . $this->_ageRange . " are there in " . $location->getState() . "?");
             $question->setCorrectAnswer($correctAnswer);
             $question->setWrongAnswers($this->generateRandomWrongAnswersForNumber($correctAnswer));
-            $question->setDidYouKnowHtml("<p><strong>Did you know you're in the majority group?</strong></p>" . $question->generateBarChartHtml($didYouKnowData));
+
+            $totalMalePopulation = array_sum(array_values($didYouKnowData));
+            $percentage = round(($correctAnswer / $totalMalePopulation) * 100, 1);
+
+            $question->setDidYouKnowHtml("<p><strong>" . $gender . "s aged " . $this->_ageRange. " make up " . $percentage . "% of " . lcfirst($gender) . "s in " . $location->getState() . ".</strong></p>"
+                                         . $question->generateBarChartHtml($didYouKnowData));
 
             return array($question);
         }
