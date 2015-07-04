@@ -14,11 +14,19 @@ class PopulationDataStore extends DynamicQuizDataStore {
 
         // TODO Use real data for all of this!
 
-        $question = new DynamicQuizQuestion();
+        $question = new DynamicQuizQuestion("Population-HowManyPeopleYourAgeGenderLocation");
         $question->setDescription("How many " . $gender . "s aged " . $age . " are there in " . $location . "?");
         $question->setCorrectAnswer(123);
         $question->setWrongAnswers($this->generateRandomWrongAnswersForNumber(123));
-        $question->setDidYouKnowHtml("<div><p><strong>Did you know you're in the majority group?</strong></p><p>Here's a graph to tell you more.</p></div>");
+        $didYouKnowData = array(
+            "0-4" => 342,
+            "5-9" => 234,
+            "10-14" => 122,
+            "15-19" => 345,
+            "20-24" => 452,
+            "25-29" => 233,
+        );
+        $question->setDidYouKnowHtml("<p><strong>Did you know you're in the majority group?</strong></p>" . $question->generateBarChartHtml($didYouKnowData));
         return array($question);
     }
 }

@@ -32,10 +32,12 @@
 
                     <h3>Did you know?</h3>
 
-                    <div class="didYouKnow"></div>
+                    <div class="didYouKnow"><?php echo $question->getDidYouKnowHtml(); ?></div>
 
-                    <p><a href="<?php echo $root; ?>/dynamicquiz/question"><button>Go to the next question &gt;</button></a></p>
+                    <p><a href="<?php echo $root; ?>/dynamicquiz/question"><button class="btn btn-primary">Go to the next question &gt;</button></a></p>
                 </div>
+
+
             </div>
         </div>
     </div><!--container-->
@@ -57,9 +59,11 @@
                         .html("<strong>Incorrect!</strong> The correct answer was '" + correctAnswer + "'.");
                 }
 
-                $("#results .didYouKnow").html("<?php echo $question->getDidYouKnowHtml(); ?>");
-
                 $("#results").show();
+
+                if ($.doDidYouKnowAction) {
+                    $.doDidYouKnowAction($("#results .didYouKnow"));
+                }
 
                 event.preventDefault();
                 return false;
