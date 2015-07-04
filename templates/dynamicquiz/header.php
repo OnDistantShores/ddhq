@@ -27,7 +27,8 @@ $title = isset($quiz) ? 'DDHQ :: ' . $quiz->getName() : 'DDHQ';
     <script>
         window.fbAsyncInit = function() {
           FB.init({
-            appId      : '472457762917327',
+            //appId      : '472457762917327', // Real app
+            appId      : '472465906249846', // Test app
             xfbml      : true,
             version    : 'v2.3'
           });

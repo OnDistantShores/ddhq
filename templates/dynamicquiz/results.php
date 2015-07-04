@@ -57,7 +57,7 @@
             $(".facebook-share").click(function() {
                 FB.ui({
                     method: 'feed',
-                    link: 'http://quizzy.invitationstation.org/', // TODO Update this
+                    link: '<?php echo \SimpleQuiz\Utils\Base\Config::$siteurl; ?>',
                     caption: 'I scored <?php echo $score; ?> out of <?php echo $num; ?> on Quizzy, the personalised government data quiz. See if you can do better!',
                 }, function(response){});
             });

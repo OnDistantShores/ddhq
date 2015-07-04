@@ -41,6 +41,7 @@
             </div>
         </div>
     </div><!--container-->
+
     <script type="text/javascript">
         $(document).ready(function () {
 
@@ -74,4 +75,5 @@
 
         });
     </script>
-<?php include 'footer.php';
+<?php
+    include 'footer.php';
