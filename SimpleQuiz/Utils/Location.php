@@ -3,10 +3,10 @@ namespace SimpleQuiz\Utils;
 
 class Location {
 
-    protected $_suburb;
-    protected $_district;
-    protected $_region;
-    protected $_state;
+    protected $_suburb = null;
+    protected $_district = null;
+    protected $_region = null;
+    protected $_state = null;
 
     public function __construct($suburb) {
         $this->loadBySuburb($suburb);
@@ -22,6 +22,9 @@ class Location {
         $this->_state = $location["state"];
     }
 
+    public function getSuburb() {
+        return $this->_suburb;
+    }
     public function getDistrict() {
         return $this->_district;
     }
@@ -30,5 +33,20 @@ class Location {
     }
     public function getState() {
         return $this->_state;
+    }
+
+    public function getLowestLevelLocation() {
+        if ($this->_suburb) {
+            return $this->_suburb;
+        }
+        else if ($this->_district) {
+            return $this->_district;
+        }
+        else if ($this->_region) {
+            return $this->_region;
+        }
+        else {
+            return $this->_state;
+        }
     }
 }

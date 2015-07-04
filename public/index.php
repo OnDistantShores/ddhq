@@ -44,6 +44,7 @@ $app->installer = function () {
 
 $app->datastores = function() {
     return array(
+        new \SimpleQuiz\Utils\DynamicQuizDataStores\GeelongPopulationProjectionsDataStore(),
         new \SimpleQuiz\Utils\DynamicQuizDataStores\PopulationDataStore(),
         // TODO More go here!
     );

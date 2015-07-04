@@ -69,4 +69,35 @@ class DynamicQuizQuestion {
 
         return $html;
     }
+
+    public function generateLineChartHtml($data) {
+        $labels = "'" . implode("', '", array_keys($data)) . "'";
+
+        $html = "
+            <script type='text/javascript'>
+                $.doDidYouKnowAction = function(parent) {
+                    $('<canvas id=\'bar\' width=\'400\' height=\'400\'></canvas>').appendTo(parent);
+                    var ctx = document.getElementById('bar').getContext('2d');
+                    var barChart = new Chart(ctx).Line({
+                        labels: [" . $labels . "],
+                        datasets: [
+                            {
+                                label: 'Population by age',
+                                fillColor: 'rgba(220,220,220,0.2)',
+                                strokeColor: 'rgba(220,220,220,1)',
+                                pointColor: 'rgba(220,220,220,1)',
+                                pointStrokeColor: '#fff',
+                                pointHighlightFill: '#fff',
+                                pointHighlightStroke: 'rgba(220,220,220,1)',
+                                data: [" . implode(",", array_values($data)) . "]
+                            }
+                        ],
+                        responsive: true
+                    });
+                };
+            </script>
+        ";
+
+        return $html;
+    }
 }
