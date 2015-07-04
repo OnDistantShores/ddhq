@@ -17,6 +17,9 @@
                             echo "Better luck next time!";
                         }
                     ?></p>
+
+                    <p><button class="btn btn-primary facebook-share">Share my result on Facebook!</button></p>
+                    <!--<p><div class="fb-like" data-share="true" data-width="400" data-show-faces="true"></div></p>-->
                 </div>
             </div>
             <div class="col-md-6">
@@ -47,6 +50,20 @@
             </div>
         </div>
     </div><!--container-->
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $(".facebook-share").click(function() {
+                FB.ui({
+                    method: 'feed',
+                    link: 'http://quizzy.invitationstation.org/', // TODO Update this
+                    caption: 'I scored <?php echo $score; ?> out of <?php echo $num; ?> on Quizzy, the personalised government data quiz. See if you can do better!',
+                }, function(response){});
+            });
+
+        });
+    </script>
 
 <?php
     include 'footer.php';
