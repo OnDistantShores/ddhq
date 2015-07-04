@@ -67,7 +67,9 @@ class AbsStatConstants {
         case ($age>=10 && $age<=14) : return "A10";
         case ($age>=15 && $age<=19) : return "A15";
         case ($age>=20 && $age<=24) : return "A20";
+        case ($age>=25 && $age<=29) : return "A25";
         case ($age>=30 && $age<=34) : return "A30";
+        case ($age>=35 && $age<=39) : return "A35";
         case ($age>=40 && $age<=44) : return "A40";
         case ($age>=45 && $age<=49) : return "A45";
         case ($age>=50 && $age<=54) : return "A50";
