@@ -42,7 +42,7 @@ class GeelongPopulationProjectionsDataStore extends DynamicQuizDataStore {
                 $years = $this->_projectionYear - 2011;
                 $change = round((($this->_data[$this->_projectionYear] - $this->_data["2011"]) / $this->_data["2011"]) * 100, 1);
 
-                $question->setDidYouKnowHtml("<p><strong>The population of " . $lowestLevelLocation . " is set to grow by " . $change . "% over the next " . $years . " years.</strong></p>"
+                $question->setDidYouKnowHtml("<p><strong>The population of " . $lowestLevelLocation . " is estimated to grow by " . $change . "% over the next " . $years . " years.</strong></p>"
                                              . $question->generateLineChartHtml($didYouKnowData));
 
                 return array($question);
