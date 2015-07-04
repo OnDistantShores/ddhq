@@ -13,9 +13,9 @@ class Location {
     }
 
     public function loadBySuburb($suburb) {
-        $this->_suburb = $suburb;
-
         $location = \ORM::for_table('location')->where('suburb', $suburb)->find_one();
+
+        $this->_suburb = trim(strpos($suburb, " (") !== -1 ? substr($suburb, 0, strpos($suburb, " (")) : $suburb);
 
         $this->_district = $location["district"];
         $this->_region = $location["region"];
