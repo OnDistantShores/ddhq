@@ -18,6 +18,7 @@ $app->session = $session;
 
 require '../routes/admin.php';
 require '../routes/public.php';
+require '../routes/custom.php';
 
 $app->leaderboard = function() {
     return new \SimpleQuiz\Utils\LeaderBoard();
@@ -38,6 +39,21 @@ $app->simple = function () {
 $app->installer = function () {
     return new \SimpleQuiz\Utils\Base\Installer();
 };
+
+// Custom stuff
+
+$app->datastores = function() {
+    return array(
+        new \SimpleQuiz\Utils\DynamicQuizDataStores\PopulationDataStore(),
+        // TODO More go here!
+    );
+};
+
+$app->dynamicQuiz = function ($app) {
+    return new \SimpleQuiz\Utils\DynamicQuiz($app);
+};
+
+// End custom stuff
 
 $app->hook('slim.before.dispatch', function() use ($app) {
 
