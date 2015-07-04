@@ -47,7 +47,7 @@ class PopulationDataStore extends DynamicQuizDataStore {
             $totalMalePopulation = array_sum(array_values($didYouKnowData));
             $percentage = round(($correctAnswer / $totalMalePopulation) * 100, 1);
 
-            $question->setDidYouKnowHtml("<p><strong>" . $gender . "s aged " . $this->_ageRange. " make up " . $percentage . "% of " . lcfirst($gender) . "s in " . $location->getState() . ".</strong></p>"
+            $question->setDidYouKnowHtml("<p><strong>The " . $this->_ageRange. " age bracket makes up " . $percentage . "% of " . lcfirst($gender) . "s in " . $location->getState() . ".</strong></p>"
                                          . $question->generateBarChartHtml($didYouKnowData));
 
             return array($question);
