@@ -7,9 +7,9 @@ abstract class DynamicQuizDataStore {
 
     protected function generateRandomWrongAnswersForNumber($number) {
         return array(
-            round($number / 2),
-            $number * 2,
-            $number * 5
+            round($number / 10),
+            $number * 10,
+            $number * 100,
         );
     }
 
