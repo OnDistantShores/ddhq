@@ -1,17 +1,80 @@
 <?php
 
-$app->get('/dynamicquiz/start', function () use ($app) {
+$app->get('/dynamicquiz/start/', function () use ($app) {
+
     $simple = $app->simple;
 
     $session = $app->session;
 
-    $locations = \ORM::for_table('location')->select_many('suburb')->order_by_asc('suburb')->find_many();
+    $fbUser = null;
+    $fbCallbackUrl = urlencode("http://govhackcompareme.com/dynamicquiz/start/?fbcallback=1"); // TODO cleanup - use Config:: etc
+    $fbLoginUrl = "https://www.facebook.com/dialog/oauth?client_id=472465906249846&redirect_uri=" . $fbCallbackUrl . "&scope=public_profile,user_birthday,user_location"; // TODO cleanup - use Config:: etc
+
+    // If we're here because we have already been auth-ed by Facebook
+    if ($app->request()->get("fbcallback") == 1) {
+        $code = $app->request()->get("code");
+
+        try {
+            $response = file_get_contents("https://graph.facebook.com/v2.3/oauth/access_token?"
+                                          . "client_id=472465906249846&"
+                                          . "redirect_uri=" . $fbCallbackUrl . "&"
+                                          . "client_secret=45689b67d361c7490353a92499010451&"
+                                          . "code=" . $code, false, stream_context_create(array("ssl"=>array("verify_peer"=>false,"verify_peer_name"=>false))));
+
+            $decodedResponse = json_decode($response, true);
+            $accessToken = $decodedResponse["access_token"];
+
+            $response = file_get_contents("https://graph.facebook.com/me?access_token=" . $accessToken, false, stream_context_create(array("ssl"=>array("verify_peer"=>false,"verify_peer_name"=>false))));
+            $fbUser = json_decode($response, true);
+
+            //print_r($fbUser) - returns Array ( [id] => 10153450929968518 [birthday] => 03/19/1983 [first_name] => Cameron [gender] => male [last_name] => Ross [link] => https://www.facebook.com/app_scoped_user_id/10153450929968518/ [location] => Array ( [id] => 105896702776319 [name] => Geelong, Victoria ) [locale] => en_GB [name] => Cameron Ross [timezone] => 10 [updated_time] => 2015-06-05T11:37:27+0000 [verified] => 1 )
+        }
+        catch (Exception $e) {}
+    }
+
+    // Load the suburb list, but narrow it down if Facebook data can help here
+    $fbnarrowedlocation = 0;
+    if ($fbUser && $fbUser["location"] && $fbUser["location"]["name"]) {
+
+        $explodedLocation = explode(",", $fbUser["location"]["name"]);
+        $cleanLocation = $explodedLocation[0];
+
+        $locations = \ORM::for_table('location')
+                    ->raw_query("SELECT suburb FROM location WHERE state = '" . $cleanLocation . "' OR region = '" . $cleanLocation . "' OR district = '" . $cleanLocation . "' OR suburb = '" . $cleanLocation . "'")
+                    ->find_many();
+
+        $fbNarrowedLocation = 1;
+    }
+    else {
+        $locations = \ORM::for_table('location')->select_many('suburb')->order_by_asc('suburb')->find_many();
+    }
+
     $suburbs = array();
     foreach ($locations as $location) {
         $suburbs[] = $location["suburb"];
     }
 
-    $app->render('dynamicquiz/start.php', array('session' => $session, 'suburbs' => $suburbs));
+    $templateData = array('session' => $session, 'suburbs' => $suburbs);
+    if ($fbUser) {
+        $templateData['fbLoginSuccess'] = 1;
+        $templateData['fbNarrowedLocation'] = $fbNarrowedLocation;
+
+        $templateData['fbName'] = $fbUser["first_name"];
+        $templateData['fbImage'] = "http://graph.facebook.com/" . $fbUser["id"] . "/picture?type=square";
+        $templateData['fbGender'] = (isset($fbUser["gender"]) ? ucfirst($fbUser["gender"]) : null);
+
+        if (isset($fbUser["birthday"])) {
+            $dateParts = explode("/", $fbUser["birthday"]);
+            if (count($dateParts) == 3) {
+                $templateData['fbAge'] = 2015 - $dateParts[2]; // TODO clean up this
+            }
+        }
+    }
+    else {
+        $templateData['fbLoginUrl'] = $fbLoginUrl;
+    }
+
+    $app->render('dynamicquiz/start.php', $templateData);
 });
 
 $app->post('/dynamicquiz/question', function () use ($app) {
