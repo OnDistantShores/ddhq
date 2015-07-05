@@ -11,12 +11,14 @@ abstract class DynamicQuizDataStore {
 
     abstract public function getRelevantDataQuestions($gender, $age, $location);
 
-    protected function generateRandomWrongAnswersForNumber($number) {
-        return array(
-            round($number / 10),
-            $number * 10,
-            $number * 100,
-        );
+    protected function generateRandomWrongAnswersForNumber($number, $percentageRandomVariation = 100) {
+        $answers = array();
+
+        for ($i = 0; $i < 3; $i++) {
+            $answers[] = $number + mt_rand((-1 * $number * ($percentageRandomVariation / 100)), ($number * ($percentageRandomVariation / 100)));
+        }
+
+        return $answers;
     }
 
 }

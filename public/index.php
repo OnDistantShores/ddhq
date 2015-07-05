@@ -44,6 +44,7 @@ $app->installer = function () {
 
 $app->datastores = function() {
     return array(
+        new \SimpleQuiz\Utils\DynamicQuizDataStores\WagesDataStore(),
         new \SimpleQuiz\Utils\DynamicQuizDataStores\CancerDataStore(),
         new \SimpleQuiz\Utils\DynamicQuizDataStores\GeelongPopulationProjectionsDataStore(),
         new \SimpleQuiz\Utils\DynamicQuizDataStores\PopulationDataStore(),

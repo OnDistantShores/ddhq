@@ -48,10 +48,13 @@ class DynamicQuizQuestion {
     public function generateBarChartHtml($data) {
         $labels = "'" . implode("', '", array_keys($data)) . "'";
 
+        $id = "graph-" . md5(microtime());
+
         $html = "
+            <div id='" . $id . "'></div>
             <script type='text/javascript'>
                 $.doDidYouKnowAction = function(parent) {
-                    $('<canvas id=\'bar\' width=\'400\' height=\'400\'></canvas>').appendTo(parent);
+                    $('<canvas id=\'bar\' width=\'400\' height=\'400\'></canvas>').appendTo('#" . $id . "');
                     var ctx = document.getElementById('bar').getContext('2d');
                     var barChart = new Chart(ctx).Bar({
                         labels: [" . $labels . "],
@@ -77,10 +80,13 @@ class DynamicQuizQuestion {
     public function generateLineChartHtml($data) {
         $labels = "'" . implode("', '", array_keys($data)) . "'";
 
+        $id = "graph-" . md5(microtime());
+
         $html = "
+            <div id='" . $id . "'></div>
             <script type='text/javascript'>
                 $.doDidYouKnowAction = function(parent) {
-                    $('<canvas id=\'bar\' width=\'400\' height=\'400\'></canvas>').appendTo(parent);
+                    $('<canvas id=\'bar\' width=\'400\' height=\'400\'></canvas>').appendTo('#" . $id . "');
                     var ctx = document.getElementById('bar').getContext('2d');
                     var barChart = new Chart(ctx).Line({
                         labels: [" . $labels . "],
