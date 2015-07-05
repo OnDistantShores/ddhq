@@ -1,5 +1,7 @@
 <?php
 
+use SimpleQuiz\Utils\Base\Config;
+
 //$app->get('/dynamicquiz/start/', function () use ($app) {
 $app->get('/', function () use ($app) {
 
@@ -8,7 +10,7 @@ $app->get('/', function () use ($app) {
     $session = $app->session;
 
     $fbUser = null;
-    $fbCallbackUrl = urlencode("http://govhackcompareme.com/?fbcallback=1#details"); // TODO cleanup - use Config:: etc
+    $fbCallbackUrl = urlencode(Config::$siteurl . "?fbcallback=1#details");
     $fbLoginUrl = "https://www.facebook.com/dialog/oauth?client_id=472465906249846&redirect_uri=" . $fbCallbackUrl . "&scope=public_profile,user_birthday,user_location"; // TODO cleanup - use Config:: etc
 
     // If we're here because we have already been auth-ed by Facebook
@@ -27,15 +29,13 @@ $app->get('/', function () use ($app) {
 
             $response = file_get_contents("https://graph.facebook.com/me?access_token=" . $accessToken, false, stream_context_create(array("ssl"=>array("verify_peer"=>false,"verify_peer_name"=>false))));
             $fbUser = json_decode($response, true);
-
-            //print_r($fbUser) - returns Array ( [id] => 10153450929968518 [birthday] => 03/19/1983 [first_name] => Cameron [gender] => male [last_name] => Ross [link] => https://www.facebook.com/app_scoped_user_id/10153450929968518/ [location] => Array ( [id] => 105896702776319 [name] => Geelong, Victoria ) [locale] => en_GB [name] => Cameron Ross [timezone] => 10 [updated_time] => 2015-06-05T11:37:27+0000 [verified] => 1 )
         }
         catch (Exception $e) {}
     }
 
     // Load the suburb list, but narrow it down if Facebook data can help here
     $fbnarrowedlocation = 0;
-    if ($fbUser && $fbUser["location"] && $fbUser["location"]["name"]) {
+    if ($fbUser && isset($fbUser["location"]) && $fbUser["location"] && isset($fbUser["location"]["name"]) && $fbUser["location"]["name"]) {
 
         $explodedLocation = explode(",", $fbUser["location"]["name"]);
         $cleanLocation = $explodedLocation[0];

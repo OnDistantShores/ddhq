@@ -65,7 +65,7 @@
 
             <div class="row">
 
-                <?php if (!(isset($fbLoginSuccess) && $fbLoginSuccess == 1)) {
+                <?php /*if (!(isset($fbLoginSuccess) && $fbLoginSuccess == 1)) {
                     $sizeOfOtherElements = 3;
                 ?>
                     <div class="col-sm-3">
@@ -76,7 +76,7 @@
                             Facebook
                         </h3><a href="<?php echo $fbLoginUrl; ?>" class="btn btn-lg btn-block btn-wire">Connect (optional)</a>
                     </div>
-                <?php } else { $sizeOfOtherElements = 4; } ?>
+                <?php } else { $sizeOfOtherElements = 4; }*/ $sizeOfOtherElements = 4; ?>
 
                 <div class="col-sm-<?php echo $sizeOfOtherElements; ?>">
                     <div class="text-center">
@@ -153,6 +153,8 @@
                 <p><a href="http://hackerspace.govhack.com/content/squizzlr">Find out more about the project</a></p>
 
                 <p><a href="https://github.com/OnDistantShores/ddhq">Find the code on GitHub</a></p>
+
+                <p>Uses <a href="https://github.com/ElanMan/simple-quiz">Simple-Quiz framework</a>, <a href="http://getbootstrap.com">Bootstrap</a>, <a href="http://chartjs.com">Chart.js</a> and <a href="http://jquery.com">JQuery</a>.</p>
             </div>
         </div>
 
