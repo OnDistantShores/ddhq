@@ -1,6 +1,4 @@
-<?php
-$title = isset($quiz) ? 'DDHQ :: ' . $quiz->getName() : 'DDHQ';
-?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +11,7 @@ $title = isset($quiz) ? 'DDHQ :: ' . $quiz->getName() : 'DDHQ';
     <link rel="stylesheet" type="text/css" href="<?php echo $root; ?>/res/css/font-awesome.min.css" />
     <link rel="stylesheet" type="text/css" href="<?php echo $root; ?>/res/css/ionicons.min.css" />
 
-    <title><?php echo $title; ?></title>
+    <title>Squizzlr!</title>
 
     <script type="text/javascript" src="<?php echo $root; ?>/res/bootstrap/assets/js/jquery.js"></script>
     <script type="text/javascript" src="<?php echo $root; ?>/res/bootstrap/dist/js/bootstrap.min.js"></script>
