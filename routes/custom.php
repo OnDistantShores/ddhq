@@ -1,13 +1,14 @@
 <?php
 
-$app->get('/dynamicquiz/start/', function () use ($app) {
+//$app->get('/dynamicquiz/start/', function () use ($app) {
+$app->get('/', function () use ($app) {
 
     $simple = $app->simple;
 
     $session = $app->session;
 
     $fbUser = null;
-    $fbCallbackUrl = urlencode("http://govhackcompareme.com/dynamicquiz/start/?fbcallback=1"); // TODO cleanup - use Config:: etc
+    $fbCallbackUrl = urlencode("http://govhackcompareme.com/?fbcallback=1#details"); // TODO cleanup - use Config:: etc
     $fbLoginUrl = "https://www.facebook.com/dialog/oauth?client_id=472465906249846&redirect_uri=" . $fbCallbackUrl . "&scope=public_profile,user_birthday,user_location"; // TODO cleanup - use Config:: etc
 
     // If we're here because we have already been auth-ed by Facebook
@@ -60,7 +61,7 @@ $app->get('/dynamicquiz/start/', function () use ($app) {
         $templateData['fbNarrowedLocation'] = $fbNarrowedLocation;
 
         $templateData['fbName'] = $fbUser["first_name"];
-        $templateData['fbImage'] = "http://graph.facebook.com/" . $fbUser["id"] . "/picture?type=square";
+        $templateData['fbImage'] = "http://graph.facebook.com/" . $fbUser["id"] . "/picture?type=large";
         $templateData['fbGender'] = (isset($fbUser["gender"]) ? ucfirst($fbUser["gender"]) : null);
 
         if (isset($fbUser["birthday"])) {

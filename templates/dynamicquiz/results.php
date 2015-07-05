@@ -22,32 +22,6 @@
                     <!--<p><div class="fb-like" data-share="true" data-width="400" data-show-faces="true"></div></p>-->
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="well">
-                    <h2>Top Scorers</h2>
-                    <p>TODO</p>
-                    <ul class="leaders">
-                        <?php
-                        /*$leaders = $quiz->getLeaders(30);
-                        $counter = 1;
-                        foreach ($leaders as $leader) :
-                            $name = '';
-                            //if current user, bolden the username
-                            if ($leader['name'] == $user->getName()) :
-                                $name = '<strong class="currentuser">' . $leader['name'] . '</strong>';
-                            else:
-                                $name = $leader['name'];
-                            endif;
-                            $percentage = round(( (int) $leader['score'] / (int) $numquestions ) * 100);
-                            echo '<li>' . $name. ': ' .  $percentage . '%</li>';
-
-                            $counter++;
-
-                        endforeach;*/
-                        ?>
-                    </ul>
-                </div>
-            </div>
         </div>
     </div><!--container-->
 

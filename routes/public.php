@@ -1,5 +1,6 @@
 <?php
-$app->get('/', function () use ($app) {
+
+/*$app->get('/', function () use ($app) {
     $simple = $app->simple;
     $quizzes = $simple->getQuizzes();
     $categories = $simple->getCategories();
@@ -7,7 +8,7 @@ $app->get('/', function () use ($app) {
     $session = $app->session;
 
     $app->render('index.php', array('quizzes' => $quizzes, 'categories' => $categories, 'session' => $session));
-});
+});*/
 
 $app->get('/requirements/', function () use ($app) {
 

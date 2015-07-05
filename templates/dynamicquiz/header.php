@@ -9,6 +9,9 @@ $title = isset($quiz) ? 'DDHQ :: ' . $quiz->getName() : 'DDHQ';
 
     <link rel="stylesheet" href="<?php echo $root; ?>/res/bootstrap/dist/css/bootstrap.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="<?php echo $root; ?>/res/css/quiz.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo $root; ?>/res/css/blocs.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo $root; ?>/res/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo $root; ?>/res/css/ionicons.min.css" />
 
     <title><?php echo $title; ?></title>
 
@@ -16,6 +19,7 @@ $title = isset($quiz) ? 'DDHQ :: ' . $quiz->getName() : 'DDHQ';
     <script type="text/javascript" src="<?php echo $root; ?>/res/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?php echo $root; ?>/res/js/custom.js"></script>
     <script type="text/javascript" src="<?php echo $root; ?>/res/chartjs/Chart.min.js"></script>
+    <script type="text/javascript" src="<?php echo $root; ?>/res/js/blocs.js"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -42,19 +46,3 @@ $title = isset($quiz) ? 'DDHQ :: ' . $quiz->getName() : 'DDHQ';
            fjs.parentNode.insertBefore(js, fjs);
          }(document, 'script', 'facebook-jssdk'));
     </script>
-
-    <!-- Static navbar -->
-    <div class="navbar navbar-default navbar-static-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="<?php echo $root; ?>/">DDHQ</a>
-        </div>
-        <div class="navbar-collapse collapse">
-        </div><!--/.nav-collapse -->
-      </div>
-    </div>
