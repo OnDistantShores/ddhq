@@ -43,6 +43,7 @@ class WagesDataStore extends DynamicQuizDataStore {
                     $didYouKnowDataByAge = $this->getDidYouKnowDataByAge();
 
                     $question = new DynamicQuizQuestion($this->_questionIds[0]);
+                    $question->setNumberFormattingPrefix("$");
                     $question->setDescription("In 2013-14, what was the average salary for " . lcfirst($gender) . "s aged " . $this->_ageRange . " in " . $this->_state . "?");
                     $question->setCorrectAnswer($correctAnswer);
                     $question->setWrongAnswers($this->generateRandomWrongAnswersForNumber($correctAnswer, 40));

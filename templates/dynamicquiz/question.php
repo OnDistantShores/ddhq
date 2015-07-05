@@ -15,7 +15,7 @@
                         $answerId = 0;
                         foreach ($answers as $answer) {
                             echo '<li><input type="radio" id="answer' . $answerId . '" value="' . $answer . '" name="answers" />' .PHP_EOL;
-                            echo '<label for="answer' . $answerId . '">' . number_format($answer) . '</label></li>' . PHP_EOL;
+                            echo '<label for="answer' . $answerId . '">' . $question->getNumberFormattingPrefix() . number_format($answer) . '</label></li>' . PHP_EOL;
                             $answerId++;
                         }
                     ?>
@@ -48,25 +48,27 @@
             // TODO Make this not have to cancel the form submission - make it not a real form in the first place!
             $("#dynamic-quiz-question").submit(function(event) {
                 var correctAnswer = "<?php echo $question->getCorrectAnswer(); ?>";
+                var radioValue = $("#dynamic-quiz-question input[type='radio']:checked").val();
 
-                if ($("#dynamic-quiz-question input[type='radio']:checked").val() == correctAnswer) {
-                    $("#results .result")
-                        .css("color", "green")
-                        .html("<strong>Correct!</strong>");
-                    $("#dynamic-quiz-next-question #result").val(1);
-                }
-                else {
-                    $("#results .result")
-                        .css("color", "red")
-                        .html("<strong>Incorrect!</strong> The correct answer was '" + correctAnswer + "'.");
-                }
+                if (radioValue) {
+                    if (radioValue == correctAnswer) {
+                        $("#results .result")
+                            .css("color", "green")
+                            .html("<strong>Correct!</strong>");
+                        $("#dynamic-quiz-next-question #result").val(1);
+                    }
+                    else {
+                        $("#results .result")
+                            .html("<strong style='color: red;'>Incorrect!</strong> The correct answer was '<?php echo $question->getNumberFormattingPrefix() . number_format($question->getCorrectAnswer()); ?>'.");
+                    }
 
-                $("#results").show();
+                    $("#results").show();
 
-                $("#dynamic-quiz-question #submit").attr('disabled','disabled');
+                    $("#dynamic-quiz-question #submit").attr('disabled','disabled');
 
-                if ($.doDidYouKnowAction) {
-                    $.doDidYouKnowAction($("#results .didYouKnow"));
+                    if ($.doDidYouKnowAction) {
+                        $.doDidYouKnowAction($("#results .didYouKnow"));
+                    }
                 }
 
                 event.preventDefault();

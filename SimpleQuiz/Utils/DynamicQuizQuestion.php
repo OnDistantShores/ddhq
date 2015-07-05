@@ -9,6 +9,8 @@ class DynamicQuizQuestion {
     protected $_wrongAnswers = array();
     protected $_didYouKnowHtml;
 
+    protected $_numberFormattingPrefix = "";
+
     public function __construct($id) {
         $this->_id = $id;
     }
@@ -43,6 +45,13 @@ class DynamicQuizQuestion {
     }
     public function getDidYouKnowHtml() {
         return $this->_didYouKnowHtml;
+    }
+
+    public function setNumberFormattingPrefix($numberFormattingPrefix) {
+        $this->_numberFormattingPrefix = $numberFormattingPrefix;
+    }
+    public function getNumberFormattingPrefix() {
+        return $this->_numberFormattingPrefix;
     }
 
     public function generateBarChartHtml($data) {
