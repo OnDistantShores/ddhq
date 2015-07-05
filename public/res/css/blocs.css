@@ -486,7 +486,9 @@ iframe{
 .bg-highway{
 	background-image:url('../../images/highway.jpg');
 }
-
+.bg-crowd {
+	background-image:url('/images/crowd.jpg');
+}
 
 
 /* = Mobile adjustments

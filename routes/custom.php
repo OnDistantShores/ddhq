@@ -55,7 +55,7 @@ $app->get('/', function () use ($app) {
         $suburbs[] = $location["suburb"];
     }
 
-    $templateData = array('session' => $session, 'suburbs' => $suburbs);
+    $templateData = array('session' => $session, 'suburbs' => $suburbs, 'hideStripeHeader' => true);
     if ($fbUser) {
         $templateData['fbLoginSuccess'] = 1;
         $templateData['fbNarrowedLocation'] = $fbNarrowedLocation;

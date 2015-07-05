@@ -25,7 +25,7 @@
       <script src="<?php echo $root; ?>/res/bootstrap/dist/assets/js/respond.min.js"></script>
     <![endif]-->
 </head>
-<body>
+<body style="background-color: #46454B;">
     <script>
         window.fbAsyncInit = function() {
           FB.init({
@@ -44,3 +44,15 @@
            fjs.parentNode.insertBefore(js, fjs);
          }(document, 'script', 'facebook-jssdk'));
     </script>
+
+    <?php if (!(isset($hideStripeHeader) && $hideStripeHeader)): ?>
+
+        <div class="navbar navbar-inverse navbar-fixed-top">
+          <div class="navbar-inner">
+            <div class="container" style="font-size: 26px; font-weight: bold;margin-top: 3px;">
+              <a class="brand" href="/">Squizzlr</a>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top: 60px;"></div>
+    <?php endif; ?>
